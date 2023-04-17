@@ -1,60 +1,59 @@
 import { Injectable } from "@angular/core";
 import { FaceSnap } from "../models/face-snap.model";
 
-@Injectable({ 
-    providedIn: 'root'
+@Injectable({
+  providedIn: 'root' // service installé à la racine de l'application
 })
 export class Facesnapservice {
-    facesnaps: FaceSnap[]= [
-        {
-            id: 0,
-          title: 'Elle',
-          description: 'La femme de ma vie',
-          imageUrl: 'https://scontent-cdt1-1.xx.fbcdn.net/v/t1.6435-9/93540830_2684119161818356_5075229228660686848_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=174925&_nc_ohc=NgN8dvALbF4AX9cXuV5&_nc_ht=scontent-cdt1-1.xx&oh=00_AfAhhfQ6hjb2EG0zXaZhuar19u962USaAqLGnPDhPH3Prg&oe=63E77721',
-          createdDate: new Date(),
-          snaps: 190,
-          location: 'Paris'
-        },
-        {
-            id: 1,
-          title: 'Moi',
-          description: 'La femme de ma vie',
-          imageUrl: 'https://scontent-cdt1-1.xx.fbcdn.net/v/t39.30808-6/265247140_239856528275973_1781120524482629572_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=174925&_nc_ohc=mofI_R7J628AX93DN3L&_nc_ht=scontent-cdt1-1.xx&oh=00_AfDGcxGlajNWGbyopV_WyhehAVu9k5qiborRiIsjADpHzA&oe=63CEC507',
-          createdDate: new Date(),
-          snaps: 78,
-          location: 'Bourgoin-Jallieu'
-        },
-        {
-            id: 2,
-                title: "Moi quand j'ai faim",
-          description: 'meme',
-          imageUrl: 'https://scontent-cdt1-1.xx.fbcdn.net/v/t39.30808-6/318457510_483319647262992_5084266459585885735_n.jpg?stp=cp6_dst-jpg&_nc_cat=106&ccb=1-7&_nc_sid=174925&_nc_ohc=x4nHNfqXtLsAX-Fs5uO&_nc_ht=scontent-cdt1-1.xx&oh=00_AfDKMt-5xJh73-FFXLgwmHyJm8-NmYl35A0ORZuQcs705A&oe=63CD7078',
-          createdDate: new Date(),
-          snaps: 50,
-          location: 'Marseille'
-        },
-        {
-            id: 3,
-          title: 'mon travail',
-          description: 'work',
-          imageUrl: 'https://scontent-cdg2-1.xx.fbcdn.net/v/t39.30808-6/323286112_581129543382008_5103720479826329598_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=730e14&_nc_ohc=wK6eC6y9r5oAX8vsVC0&_nc_ht=scontent-cdg2-1.xx&oh=00_AfAKBcLFKNKTtsFXaixuVMm9ssT26wn15Us9KDsrIS3jgg&oe=63CEA50E',
-          createdDate: new Date(),
-          snaps: 35,
-        } 
-      ];
-      
-      getAllFaceSnap(): FaceSnap[] {
-        return this.facesnaps;
-      }
+  face_snaps: FaceSnap[] = [
+    {
+      id: 0,
+      title: 'X',
+      description: 'X',
+      imageUrl: 'https://i.pinimg.com/564x/83/f0/d4/83f0d4b367599faa68fce9e0a093af8c.jpg',
+      createdDate: new Date(),
+      snaps: 190,
+      location: 'Paris'
+    },
+    {
+      id: 1,
+      title: 'Moi',
+      description: 'La femme de ma vie',
+      imageUrl: 'https://images.pexels.com/photos/15824212/pexels-photo-15824212.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      createdDate: new Date(),
+      snaps: 78,
+      location: 'Bourgoin-Jallieu'
+    },
+    {
+      id: 2,
+      title: "Moi quand j'ai faim",
+      description: 'meme',
+      imageUrl: 'https://images.pexels.com/photos/12311393/pexels-photo-12311393.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      createdDate: new Date(),
+      snaps: 50,
+      location: 'Marseille'
+    },
+    {
+      id: 3,
+      title: 'mon travail',
+      description: 'work',
+      imageUrl: 'https://images.pexels.com/photos/574069/pexels-photo-574069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      createdDate: new Date(),
+      snaps: 35,
+    }
+  ];
 
-      snapFaceSnapbyId(faceSnapid: number): void
-      {
-        const Snap = this.facesnaps.find(Snap => Snap.id === faceSnapid);
+  // methodes : type de retour 
+  getAllFaceSnap(): FaceSnap[] {
+    return this.face_snaps;
+  }
 
-        if(Snap){
-            Snap.id++;
-        }else{
-            throw new Error('FaceSnap not found');
-        }
-      }
+  snapFaceSnapbyId(faceSnapid: number, snapType: 'snap' | 'unsnap'): FaceSnap {
+    const faceSnap = this.face_snaps.find(x => x.id == faceSnapid);
+    if (!faceSnap) {
+      throw new Error('FaceSnap not found');
+    } else {
+      return faceSnap;
+    }
+  }
 }
