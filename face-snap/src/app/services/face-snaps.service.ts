@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FaceSnap } from "../models/face-snap.model";
+import { NewFaceSnapComponent } from "../new-face-snap/new-face-snap.component";
 
 @Injectable({
   providedIn: 'root' // service installé à la racine de l'application
@@ -55,5 +56,15 @@ export class Facesnapservice {
     } else {
       return faceSnap;
     }
+  }
+
+  addFaceSnap(formValue: { title: string, description: string, imageUrl: string, location: string }): void {
+    const faceSnap: FaceSnap = {
+      ...formValue,
+      createdDate: new Date(),
+      snaps: 0,
+      id: this.face_snaps[this.face_snaps.length - 1].id + 1
+    }
+    this.face_snaps.push(faceSnap);
   }
 }
