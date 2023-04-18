@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { FaceSnap } from '../models/face-snap.model';
-import { Facesnapservice } from '../services/face-snaps.service';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
+import { Observable } from 'rxjs';
+import { FaceSnap } from 'src/app/core/models/face-snap.model';
+import { Facesnapservice } from 'src/app/core/services/face-snaps.service';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { ActivatedRoute } from '@angular/router'
 export class SingleFaceSnapComponent {
   btntext!: string;
   faceSnap!: FaceSnap;
+  faceSnap$!: Observable<FaceSnap>
 
   constructor(private facesnapsservice: Facesnapservice, private route: ActivatedRoute) {
 
@@ -19,17 +21,15 @@ export class SingleFaceSnapComponent {
   ngOnInit(): void {
     this.btntext = 'unliked';
     const faceSnapId = +this.route.snapshot.params['id'];
-    this.faceSnap = this.facesnapsservice.snapFaceSnapbyId(faceSnapId, 'snap');
+    this.faceSnap$ = this.facesnapsservice.getFaceSnapById(faceSnapId);
   }
 
-  onSnap() {
+  onSnap(facesnapid: number) {
     if (this.btntext === 'unliked') {
-      this.facesnapsservice.snapFaceSnapbyId(this.faceSnap.id, 'snap');
-      this.faceSnap.snaps++;
+      this.facesnapsservice.snapFaceSnapbyId(facesnapid, 'snap');
       this.btntext = 'liked';
     } else {
-      this.facesnapsservice.snapFaceSnapbyId(this.faceSnap.id, 'unsnap');
-      this.faceSnap.snaps--;
+      this.facesnapsservice.snapFaceSnapbyId(facesnapid, 'unsnap');
       this.btntext = 'unliked';
     }
 
